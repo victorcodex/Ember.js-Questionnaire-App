@@ -6,9 +6,7 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | single-choice-component', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test('Single choice component test', async function(assert) {
 
     await render(hbs`{{single-choice-component}}`);
 
@@ -22,5 +20,15 @@ module('Integration | Component | single-choice-component', function(hooks) {
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');
+
+    // set question_headline
+    this.set('question_headline', 'Wen möchtest Du versichern?');
+
+    await render(hbs`<h3>{{question_headline}}</h3>`);
+
+    assert.equal(this.element.textContent.trim(), 'Wen möchtest Du versichern?', 'display question header');
+
+
   });
+
 });

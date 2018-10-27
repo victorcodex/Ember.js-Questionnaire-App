@@ -6,9 +6,7 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | questionnaire-details-component', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test('Questionnaire details component test', async function(assert) {
 
     await render(hbs`{{questionnaire-details-component}}`);
 
@@ -22,5 +20,21 @@ module('Integration | Component | questionnaire-details-component', function(hoo
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');
+
+    // set questionnaire_name
+    this.set('questionnaire_name', 'Privathaftpflichtversicherung');
+
+    await render(hbs`<h3>{{questionnaire_name}}</h3>`);
+
+    assert.equal(this.element.textContent.trim(), 'Privathaftpflichtversicherung', 'display questionnaire name');
+
+    // set questionnaire_description
+    this.set('questionnaire_description', 'Um Dein persönliches Privathaftpflichtversicherungs-Angebot zu erstellen, benötigen wir noch ein paar Informationen von Dir.');
+
+    await render(hbs`<h3>{{questionnaire_description}}</h3>`);
+
+    assert.equal(this.element.textContent.trim(), 'Um Dein persönliches Privathaftpflichtversicherungs-Angebot zu erstellen, benötigen wir noch ein paar Informationen von Dir.', 'display questionnaire decription');
+
+
   });
 });

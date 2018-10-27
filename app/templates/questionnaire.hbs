@@ -1,0 +1,124 @@
+<div class="container" id="container">
+
+  <form>
+
+    {{#each-in model as |_questionnaire questionnaire|}}
+
+      {{!-- Display questionnaire details like description --}}
+      {{#questionnaire-details-component
+        questionnaire_name=questionnaire.name
+        questionnaire_description=questionnaire.description
+      }}
+
+      {{/questionnaire-details-component}}
+      {{!-- Display questionnaire details like description --}}
+
+
+      {{#each questionnaire.questions as |question index|}}
+
+        {{!-- Display questionnaire Single Choice Type --}}
+        <div class="header-section">
+          {{#if (eq question.question_type "multiple-choice")}}
+
+            {{#single-choice-component
+              question_headline = (concatenate-index-headline (question-index-inc index) question.headline)
+              question_headline_id = question.identifier
+            }}
+
+            {{/single-choice-component}}
+
+            <fieldset id={{concatenate-two question.identifier index}}>
+              {{#each question.choices as |choice|}}
+                {{#single-choice-input-fields-component
+                  question_headline = (concatenate-index-headline (question-index-inc index) question.headline)
+                  question_headline_id = question.identifier
+                  question = question
+                  question_identifier = question.identifier
+                  choice_label = choice.label
+                  choice_value = choice.value
+                  hasJump = question.jumps
+                }}
+
+                {{/single-choice-input-fields-component}}
+              {{/each}}
+            </fieldset>
+
+          {{/if}}
+        </div>
+        {{!-- Display questionnaire Single Choice Type --}}
+
+
+        {{!-- Display questionnaire Text Free Type --}}
+        <div class="header-section">
+          {{#if (eq question.question_type "text")}}
+
+            {{#if (eq question.multiline "true")}}
+
+              {{#free-text-component
+                question_headline = (concatenate-index-headline (question-index-inc index) question.headline)
+                question_headline_id = question.identifier
+                question_index = (question-index-inc index)
+                multilineTextField = "true"
+              }}
+
+              {{/free-text-component}}
+
+            {{else if (eq question.multiline "false") }}
+
+              {{#free-text-component
+                question_headline =  (concatenate-index-headline (question-index-inc index) question.headline)
+                question_headline_id = question.identifier
+                question_index = (question-index-inc index)
+                noneMultilineTextField = "true"
+              }}
+
+              {{/free-text-component}}
+
+            {{/if}}
+
+          {{/if}}
+        </div>
+        {{!-- Display questionnaire Text Free Type --}}
+
+      {{/each}}
+
+    {{/each-in}}
+
+    <div class="Submit-questionnaire">
+      <button
+        class="submit-button btnFade btnBlueGreen"
+        {{action "SendQuestionnaireAnswersToServer"}}
+      >
+        Submit
+      </button>
+    </div>
+
+  </form>
+  <div class="footer-container input-field">
+    <div class="arrow top prev_field"></div>
+    <div class="arrow bottom next_field"></div>
+  </div>
+
+</div>
+
+ <div class="success-container" id="success-container">
+   <div class="success-item success-fixed">
+     <div>
+       <svg
+         xmlns="http://www.w3.org/2000/svg"
+         width="204"
+         height="100"
+         class="success-icon"
+         viewBox="0 0 24 24"
+         enable-background="new 0 0 512 512"
+         xml:space="preserve"
+       >
+         <path
+           id="success-icon-fill"
+           d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z"
+         />
+       </svg>
+     </div>
+     <p>Hurra ... Sie haben den Fragebogen ausgefüllt.</p>
+   </div>
+ </div>

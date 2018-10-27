@@ -1,0 +1,33 @@
+<div class="free-text-component">
+
+  <h3
+    class="input-field"
+    id={{question_headline_id}}
+  >
+    {{question_headline}}
+  </h3>
+
+  {{#if (eq multilineTextField "true")}}
+    {{textarea
+      class="text-form-field"
+      placeholder="Type here..."
+      cols="5"
+      rows="6"
+      id=(concatenate-two question_headline_id question_index)
+      value=""
+    }}
+  {{/if}}
+
+  {{#if (eq noneMultilineTextField "true")}}
+    {{input
+      type="text"
+      class="text-form-field"
+      placeholder="Type here..."
+      id=(concatenate-two question_headline_id question_index)
+      value=""
+    }}
+  {{/if}}
+  <div class="yield">
+    {{yield}}
+  </div>
+</div>

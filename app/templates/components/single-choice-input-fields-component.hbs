@@ -1,0 +1,13 @@
+<p>
+  {{input
+    type="radio"
+    input=(action "getSingleChoiceObject" question question_identifier hasJump choice_value)
+    id=(choice-indentifier question_identifier choice_label)
+    value=choice_value
+    name=question_identifier
+  }}
+  <label for={{choice-indentifier question_identifier choice_label}}>{{choice_label}}</label>
+  <div class="yield">
+    {{yield}}
+  </div>
+</p>

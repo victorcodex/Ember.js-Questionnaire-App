@@ -1,0 +1,15 @@
+<div class="questionnaire-details-component">
+  <div
+    class="page-header"
+  >
+    {{#if questionnaire_name}}
+      <img src="/images/clark-logo-svg.svg" alt="clark-logo-svg" class="logo">
+    {{/if}}
+    <h3>{{questionnaire_name}}</h3>
+    <h3 class="header-description">{{questionnaire_description}}</h3>
+  </div>
+  <div class="yield">
+    {{yield}}
+  </div>
+</div>
+
